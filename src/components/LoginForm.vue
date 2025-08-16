@@ -28,22 +28,30 @@
         <h1 class="text-center">User Information Form</h1>
         <form @submit.prevent="submitForm">
           <div class="row mb-3">
-            <div class="col-12 col-sm-6">
+            <div class="col-md-6 col-sm-6">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" v-model="formData.username" />
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                required
+                v-model="formData.username"
+              />
             </div>
-            <div class="col-12 col-sm-6">
+            <div class="col-md-6 col-sm-6">
               <label for="password" class="form-label">Password</label>
               <input
                 type="password"
                 class="form-control"
                 id="password"
+                minlength="4"
+                maxlength="10"
                 v-model="formData.password"
               />
             </div>
           </div>
           <div class="row mb-3">
-            <div class="col-12 col-sm-6">
+            <div class="col-md-6 col-sm-6">
               <div class="form-check">
                 <input
                   type="checkbox"
@@ -54,9 +62,9 @@
                 <label class="form-check-label" for="isAustralian">Australian Resident?</label>
               </div>
             </div>
-            <div class="col-12 col-sm-6">
+            <div class="col-md-6 col-sm-6">
               <label for="gender" class="form-label">Gender</label>
-              <select class="form-select" id="gender" v-model="formData.gender">
+              <select class="form-select" id="gender" required v-model="formData.gender">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
