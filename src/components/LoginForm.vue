@@ -61,17 +61,27 @@
                   class="form-check-input"
                   id="isAustralian"
                   v-model="formData.isAustralian"
+                  @blur="() => validateIsAustralian(true)"
+                  @change="validateIsAustralian(true)"
                 />
                 <label class="form-check-label" for="isAustralian">Australian Resident?</label>
+                <div v-if="errors.isAustralian" class="text-danger">{{ errors.isAustralian }}</div>
               </div>
             </div>
             <div class="col-md-6 col-sm-6">
               <label for="gender" class="form-label">Gender</label>
-              <select class="form-select" id="gender" v-model="formData.gender">
+              <select
+                class="form-select"
+                id="gender"
+                v-model="formData.gender"
+                @blur="() => validateGender(true)"
+                @change="validateGender(true)"
+              >
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
+              <div v-if="errors.gender" class="text-danger">{{ errors.gender }}</div>
             </div>
           </div>
           <div class="mb-3">
@@ -81,7 +91,10 @@
               id="reason"
               rows="3"
               v-model="formData.reason"
+              @blur="() => validateReason(true)"
+              @input="validateReason(true)"
             ></textarea>
+            <div v-if="errors.reason" class="text-danger">{{ errors.reason }}</div>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -91,7 +104,7 @@
       </div>
     </div>
   </div>
-  <div class="row mt-5" v-if="submittedCards.length">
+  <!-- <div class="row mt-5" v-if="submittedCards.length">
     <div class="d-flex flex-wrap justify-content-start">
       <div
         v-for="(card, index) in submittedCards"
@@ -111,12 +124,25 @@
         </ul>
       </div>
     </div>
-  </div>
+  </div> -->
+  <DataTable :value="submittedCards" tableStyle="min-width: 50rem">
+    <Column field="username" header="Username"></Column>
+    <Column field="password" header="Password"></Column>
+    <Column field="isAustralian" header="IsAustralian">
+      <template #body="slotProps">{{ slotProps.data.isAustralian ? 'Yes' : 'No' }}</template>
+    </Column>
+    <Column field="gender" header="Gender"></Column>
+    <Column field="reason" header="Reason"></Column>
+  </DataTable>
 </template>
 
 <script setup>
 // Our logic will go here
 import { ref } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import ColumnGroup from 'primevue/columngroup' // optional
+import Row from 'primevue/row' // optional
 
 const formData = ref({
   username: '',
@@ -131,7 +157,16 @@ const submittedCards = ref([])
 const submitForm = () => {
   validateName(true)
   validatePassword(true)
-  if (!errors.value.username && !console.errors.value.password) {
+  validateIsAustralian(true)
+  validateGender(true)
+  validateReason(true)
+  if (
+    !errors.value.username &&
+    !errors.value.password &&
+    !errors.value.isAustralian &&
+    !errors.value.gender &&
+    !errors.value.reason
+  ) {
     submittedCards.value.push({
       ...formData.value,
     })
@@ -185,6 +220,36 @@ const validatePassword = (blur) => {
     if (blur) errors.value.password = 'Password must contain at least one special character.'
   } else {
     errors.value.password = null
+  }
+}
+
+const validateIsAustralian = (blur) => {
+  if (!formData.value.isAustralian) {
+    if (blur) errors.value.isAustralian = 'You must confirm residency.'
+  } else {
+    errors.value.isAustralian = null
+  }
+}
+
+const validateGender = (blur) => {
+  if (!formData.value.gender) {
+    if (blur) errors.value.gender = 'You must select a gender.'
+  } else {
+    errors.value.gender = null
+  }
+}
+
+const validateReason = (blur) => {
+  const reason = formData.value.reason
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(reason)
+  if (!reason) {
+    if (blur) errors.value.reason = 'Reason cannot be empty.'
+  } else if (reason.length > 100) {
+    if (blur) errors.value.reason = 'Reason must be within 100 characters.'
+  } else if (hasSpecialChar) {
+    if (blur) errors.value.reason = 'Reason cannot contain special characters.'
+  } else {
+    errors.value.reason = null
   }
 }
 </script>
