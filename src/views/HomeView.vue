@@ -84,6 +84,27 @@ const validateConfirmPassword = (blur) => {
     errors.value.confirmPassword = null
   }
 }
+
+const messages = ref({
+  reason: null,
+  color: null
+})
+
+const validateReason = () => {
+  const reasonText = formData.value.reason.trim()
+
+  if (reasonText.length < 10) {
+    messages.value.reason = 'Reason must be at least 10 characters'
+    messages.value.color = 'text-danger'
+  } else if (reasonText.toLowerCase().includes('friend')) {
+    messages.value.reason = 'Great to have a friend'
+    messages.value.color = 'text-success'
+  } else {
+    messages.value.reason = null
+    messages.value.color = null
+  }
+}
+
 </script>
 
 <template>
@@ -165,7 +186,12 @@ const validateConfirmPassword = (blur) => {
               id="reason"
               rows="3"
               v-model="formData.reason"
+              @blur="() => validateReason(true)"
+              @input="() => validateReason(false)"
             ></textarea>
+            <div v-if="messages.reason" :class="messages.color">
+    {{ messages.reason }}
+  </div>
           </div>
           <div class="mb-3">
             <label for="reason" class="form-label">Suburb</label>
