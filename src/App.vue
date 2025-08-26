@@ -1,26 +1,25 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import JSON from './components/JSON.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import JSONLab from './components/JSONLab.vue'
+import BHeader from './components/BHeader.vue'
+import LibraryRegistrationForm from './components/LibraryRegistrationForm.vue'
 </script>
 
 <template>
-  <JSON />
+  <div class="main-container">
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+    <BHeader />
   </header>
 
-  <main>
-    <TheWelcome />
+  <main class="main-box">
+    <LibraryRegistrationForm />
+    <!-- <JSONLab /> -->
+     <!-- <router-view></router-view> -->
   </main>
+  </div>
 </template>
 
 <style scoped>
-header {
+/* header {
   line-height: 1.5;
 }
 
@@ -45,5 +44,5 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
-}
+} */
 </style>
