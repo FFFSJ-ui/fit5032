@@ -7,7 +7,9 @@
         <p class="text-center">
           Welcome to our digital library! We're dedicated to providing a vast collection of books and resources to our community.
         </p>
-        
+        <div class="text-center my-3" v-if="isAuthenticated">
+          <button class="btn btn-outline-danger" @click="handleLogout">Logout</button>
+        </div>
       </div>
     </div>
   </div>
@@ -16,6 +18,14 @@
 
 <script setup>
 // No script needed for now
+import { useRouter } from 'vue-router'
+import { logout, isAuthenticated } from '@/auth'
+
+const router = useRouter()
+const handleLogout = () => {
+  logout()
+  router.push('/login')
+}
 </script>
 
 <style>

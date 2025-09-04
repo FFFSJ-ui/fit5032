@@ -1,13 +1,14 @@
 <script setup>
 import JSONLab from './components/JSONLab.vue'
+import { useRoute } from 'vue-router'
 import BHeader from './components/BHeader.vue'
-
+const route = useRoute()
 // import LibraryRegistrationForm from './components/LibraryRegistrationForm.vue'
 </script>
 
 <template>
   <div class="main-container">
-  <header>
+  <header v-if="route.path !== '/login'">
     <BHeader />
   </header>
 
