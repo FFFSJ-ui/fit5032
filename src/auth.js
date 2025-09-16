@@ -1,7 +1,10 @@
 import { ref } from 'vue'
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 
 export const isAuthenticated = ref(false)
 export const currentUser = ref(null)
+export const isFirebaseAuthenticated = ref(false)
+export const firebaseUser = ref(null)
 
 const VALID_CREDENTIALS = {
   username: 'admin',
@@ -39,4 +42,23 @@ export function login(username, password) {
 export function logout() {
   isAuthenticated.value = false
   currentUser.value = null
+}
+
+setTimeout(() => {
+  const auth = getAuth()
+  onAuthStateChanged(auth, (user) => {
+  if (user) {
+    isFirebaseAuthenticated.value = true
+    firebaseUser.value = user
+  } else {
+    isFirebaseAuthenticated.value = false
+    firebaseUser.value = null
+  }
+})
+}, 100)
+
+
+export function firebaseLogout() {
+  const auth = getAuth()
+  return signOut(auth)
 }

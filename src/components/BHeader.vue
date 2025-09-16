@@ -12,17 +12,11 @@
         <li class="nav-item">
           <router-link to="/about" class="nav-link" active-class="active">About</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="!isFirebaseAuthenticated">
           <router-link to="/fireLogin" class="nav-link" active-class="active">Firebase Login</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="!isFirebaseAuthenticated">
           <router-link to="/fireRegister" class="nav-link" active-class="active">Firebase Register</router-link>
-        </li>
-        <li class="nav-item" v-if="!isAuthenticated">
-          <router-link to="/login" class="nav-link" active-class="active">Login</router-link>
-        </li>
-        <li class="nav-item ms-3" v-else>
-          <span class="nav-link disabled">Hello, {{ currentUser?.username }}!</span>
         </li>
 
       </ul>
@@ -31,7 +25,7 @@
 </template>
 
 <script setup>
-import { isAuthenticated, currentUser } from '@/auth'
+import { isAuthenticated, currentUser, isFirebaseAuthenticated } from '@/auth'
 </script>
 
 <style scoped>
