@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
+import AddBookView from '../views/AddBookView.vue'
 import { isAuthenticated, isFirebaseAuthenticated } from '../auth'
 import FirebaseSigninView from '@/views/FirebaseSigninView.vue'
 import FirebaseRegisterView from '@/views/FirebaseRegisterView.vue'
@@ -26,6 +27,11 @@ const routes = [
     name: 'About',
     component: AboutView,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/addbook',
+    name: 'AddBook',
+    component: AddBookView,
   },
   {
     path: '/fireLogin',
