@@ -52,13 +52,13 @@ export default {
     async function clear() {
       search.value = ''
       max.value = null
-      let q = query(collection(db, 'books'), orderBy('name', dir.value))
+      let q = query(collection(db, 'books'), orderBy('isbn', dir.value))
       books.value = (await getDocs(q)).docs.map(d => ({ id: d.id, ...d.data() }))
     }
 
     async function find() {
       let q = !search.value ? 
-        query(collection(db, 'books'), orderBy('name', dir.value)) :
+        query(collection(db, 'books'), orderBy('isbn', dir.value)) :
         query(collection(db, 'books'), where('name', '==', search.value))
       
       if (max.value > 0) q = query(q, limit(+max.value))
