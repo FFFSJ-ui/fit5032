@@ -7,11 +7,17 @@ import { isAuthenticated, isFirebaseAuthenticated } from '../auth'
 import FirebaseSigninView from '@/views/FirebaseSigninView.vue'
 import FirebaseRegisterView from '@/views/FirebaseRegisterView.vue'
 import BookManageView from '@/views/BookManageView.vue'
+import GetBookCountView from '@/views/GetBookCountView.vue'
 
 const routes = [
   {
     path: '/',
     redirect: '/home',
+  },
+  {
+    path: '/getBookCount',
+    name: 'GetBookCount',
+    component: GetBookCountView,
   },
   {
     path: '/login',

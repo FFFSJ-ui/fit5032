@@ -13,6 +13,9 @@
           <router-link to="/addbook" class="nav-link" active-class="active">Add Book</router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/getBookCount" class="nav-link" active-class="active">Get Book Count</router-link>
+        </li>
+        <li class="nav-item">
           <router-link to="/bookmanage" class="nav-link" active-class="active"
             >Book Management</router-link
           >
