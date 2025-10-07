@@ -2,13 +2,14 @@
 import JSONLab from './components/JSONLab.vue'
 import { useRoute } from 'vue-router'
 import BHeader from './components/BHeader.vue'
+import CountBookAPI from './views/CountBookAPI.vue';
 const route = useRoute()
 // import LibraryRegistrationForm from './components/LibraryRegistrationForm.vue'
 </script>
 
 <template>
   <div class="main-container">
-  <header v-if="route.path !== '/login'">
+  <header v-if="showHeader && route.path !== '/login'">
     <BHeader />
   </header>
 
@@ -20,6 +21,20 @@ const route = useRoute()
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  components: {
+    BHeader,
+    CountBookAPI
+  },
+  computed: {
+    showHeader() {
+      return this.$route.name !== 'CountBookAPI';
+    }
+  }
+};
+</script>
 <style scoped>
 /* header {
   line-height: 1.5;
