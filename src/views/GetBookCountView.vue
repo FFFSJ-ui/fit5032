@@ -18,7 +18,7 @@ export default {
   methods: {
     async getBookCount() {
       try {
-        const response = await axios.get()
+        const response = await axios.get('https://countbooks-oqbldd4hga-uc.a.run.app')
         this.count = response.data.count
         this.error = null
       } catch (error) {
