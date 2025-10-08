@@ -3,6 +3,8 @@ import JSONLab from './components/JSONLab.vue'
 import { useRoute } from 'vue-router'
 import BHeader from './components/BHeader.vue'
 import CountBookAPI from './views/CountBookAPI.vue';
+import GetAllBookBookAPI from './views/GetAllBookAPI.vue';
+
 const route = useRoute()
 // import LibraryRegistrationForm from './components/LibraryRegistrationForm.vue'
 </script>
@@ -26,11 +28,10 @@ export default {
   name: 'App',
   components: {
     BHeader,
-    CountBookAPI
   },
   computed: {
     showHeader() {
-      return this.$route.name !== 'CountBookAPI';
+      return this.$route.name !== 'CountBookAPI' && this.$route.name !== 'GetAllBookAPI';
     }
   }
 };
