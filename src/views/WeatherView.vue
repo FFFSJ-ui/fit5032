@@ -8,6 +8,7 @@
           v-model="city"
           placeholder="Enter city name"
           class="search-input"
+          @keyup.enter="searchByCity"
         />
         <button @click="searchByCity" class="search-button">Search</button>
       </div>
@@ -38,7 +39,7 @@
 // The info section in 10.1.1 provided detailed information about this package
 import axios from "axios";
 
-const apikey = "Follow 10.1.2 to obtain your API key";
+const apikey = "e20c4702a30f6ddfcc75e6acab4bd135";
 
 export default {
   name: "App",
@@ -101,6 +102,12 @@ export default {
         this.weatherData = response.data;
       } catch (error) {
         console.error("Error fetching weather data:", error);
+      }
+    },
+    async searchByCity() {
+      if (this.city) {
+        const url = `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${apikey}`;
+        await this.fetchWeatherData(url);
       }
     },
   },
