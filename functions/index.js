@@ -51,6 +51,26 @@ exports.getAllBooks = onRequest((req, res) => {
   });
 });
 
+exports.addBook = onRequest((req, res) => {
+  cors(req, res, async () => {
+    try {
+      const booksCollection = admin.firestore().collection("books");
+      const {isbn, name} = req.body;
+      const capitalizedData = {
+        isbn: isbn,
+        name: name.toUpperCase(),
+      };
+      const docRef = await booksCollection.add(capitalizedData);
+      res.status(200).send({
+        id: docRef.id,
+        ...capitalizedData,
+      });
+    } catch (error) {
+      console.error("Error adding book:", error.message);
+      res.status(500).send("Error adding book");
+    }
+  });
+});
 // For cost control, you can set the maximum number of containers that can be
 // running at the same time. This helps mitigate the impact of unexpected
 // traffic spikes by instead downgrading performance. This limit is a

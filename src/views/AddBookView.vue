@@ -32,7 +32,11 @@ export default {
           alert('ISBN must be a valid number')
           return
         }
-        await addDoc(collection(db, 'books'), { isbn: isbnNumber, name: name.value })
+        await fetch('https://addbook-oqbldd4hga-uc.a.run.app', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ isbn: isbnNumber, name: name.value })
+        })
         isbn.value = ''
         name.value = ''
         alert('Book added successfully!')
