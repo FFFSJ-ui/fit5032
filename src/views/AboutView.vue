@@ -8,7 +8,7 @@
           Welcome to our digital library! We're dedicated to providing a vast collection of books and resources to our community.
         </p>
         <div class="text-center my-3" v-if="isFirebaseAuthenticated">
-          <button class="btn btn-outline-danger" @click="handleLogout">Logout</button>
+          <button class="btn btn-danger" @click="handleLogout">Logout</button>
         </div>
       </div>
     </div>
