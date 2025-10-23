@@ -12,7 +12,9 @@ import WeatherView from '@/views/WeatherView.vue'
 import CountBookAPI from '@/views/CountBookAPI.vue'
 import GetAllBookAPI from '@/views/GetAllBookAPI.vue'
 
-const routes = [
+const router = createRouter({
+  history: createWebHistory('/'),
+  routes: [
   {
     path: '/',
     redirect: '/home',
@@ -74,10 +76,6 @@ const routes = [
     component: FirebaseRegisterView,
   },
 ]
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
 })
 
 router.beforeEach((to, from, next) => {
